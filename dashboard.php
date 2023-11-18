@@ -158,7 +158,7 @@ class dashboard_view{
                         <!-- ./col -->
                         <div class="col-lg-3 col-6">
                             <!-- small box -->
-                            <div class="small-box bg-warning">
+                            <div class="small-box bg-danger">
                                 <div class="inner">
                                     <h3><?php print $arrValores["IMC"]; ?></h3>
                                     <p>IMC</p>
@@ -295,8 +295,8 @@ class dashboard_view{
                                 },
                                 ticks: $.extend({
                                     beginAtZero: false,
-                                    suggestedMin: 100,
-                                    suggestedMax: 250
+                                    suggestedMin: 190,
+                                    suggestedMax: 205
                                 }, ticksStyle)
                                 }],
                                 xAxes: [{

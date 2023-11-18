@@ -345,15 +345,6 @@ function getFilterQuery($strFieldsSearch, $strFilterText, $boolAddAnd = true, $b
 }
 
 
-// Funcion que permite el envio de correo electronico
-function sendEmail($destinatario, $asunto, $cuerpo)
-{
-    $headers = "MIME-Version: 1.0\r\n";
-    $headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
-    $headers .= "From: CRM Televentas <jorge.tunchez@gmail.com>\r\n";
-    mail($destinatario, $asunto, $cuerpo, $headers);
-}
-
 // Funcion que permite dibujar el header de la aplicacion
 function drawHeader($arrRolUser, $nombre){
     ?>
@@ -387,7 +378,7 @@ function drawHeader($arrRolUser, $nombre){
             <!-- Icon  -->
             <link rel="icon" href="images/get_fit_icon.png">
             <!-- sweetalert2  -->
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+            <link rel="stylesheet" href="dist/css/adminlte.min/sweetalert2.min.css">
         </head>
         <body class="hold-transition sidebar-mini layout-fixed">
             
@@ -558,7 +549,8 @@ function drawFooter(){
             <script src="dist/js/demo.js"></script>
             <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
             <script src="dist/js/pages/dashboard.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+            <!-- SweetAlert -->
+            <script src="build/js/Sweetalert2@10.js"></script>
             <!-- Core -->
             <script src="build/js/core.js"></script>
     <?php

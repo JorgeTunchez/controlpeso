@@ -288,11 +288,11 @@ class categorias_view{
                                         <table id="tblCategorias" class="table table-bordered table-hover">
                                             <thead style="background-color: #343a40; color: #fff;">
                                                 <tr>
-                                                    <th>Nombre</th>
-                                                    <th>Valor Inicial</th>
-                                                    <th>Valor Final</th>
-                                                    <th class="text-center">Editar</th>
-                                                    <th class="text-center">Eliminar</th>
+                                                    <th style="vertical-align: middle;">Nombre</th>
+                                                    <th style="vertical-align: middle;">Valor Inicial</th>
+                                                    <th style="vertical-align: middle;">Valor Final</th>
+                                                    <th style="vertical-align: middle;">Editar</th>
+                                                    <th style="vertical-align: middle;">Eliminar</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -304,15 +304,15 @@ class categorias_view{
                                                     $valorFinal = $val["VALOR_FINAL"];
                                                     ?>
                                                     <tr>
-                                                        <td><?php print $nombre; ?></td>
-                                                        <td><?php print $valorInicial; ?></td>
-                                                        <td><?php print $valorFinal; ?></td>
-                                                        <td class="text-center">
+                                                        <td style="vertical-align: middle;"><?php print $nombre; ?></td>
+                                                        <td style="vertical-align: middle;"><?php print $valorInicial; ?></td>
+                                                        <td style="vertical-align: middle;"><?php print $valorFinal; ?></td>
+                                                        <td style="vertical-align: middle;">
                                                             <button class="btn btn-info" onclick="openModalEditar('<?php print $id; ?>','<?php print $nombre; ?>', '<?php print $valorInicial; ?>','<?php print $valorFinal; ?>')">
                                                                 <i class="far fas fa-edit"></i>&nbsp;Editar
                                                             </button>
                                                         </td>
-                                                        <td class="text-center">
+                                                        <td style="vertical-align: middle;">
                                                             <button class="btn btn-danger" onclick="openModalEliminar('<?php print $id; ?>')">
                                                                 <i class="far fas fa-trash-alt"></i>&nbsp;Eliminar
                                                             </button>

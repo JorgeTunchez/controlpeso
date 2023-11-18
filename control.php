@@ -319,18 +319,21 @@ class control_view{
                                         <table id="tblControl" class="table table-bordered table-hover">
                                             <thead style="background-color: #343a40; color: #fff;">
                                                 <tr>
-                                                    <th>Fecha</th>
-                                                    <th>Peso (lbs)</th>
-                                                    <th>IMC</th>
-                                                    <th>Categoria</th>
-                                                    <th>Diferencia Peso</th>
-                                                    <th class="text-center">Editar</th>
-                                                    <th class="text-center">Eliminar</th>
+                                                    <th></th>
+                                                    <th style="vertical-align: middle;">Fecha</th>
+                                                    <th style="vertical-align: middle;">Peso (lbs)</th>
+                                                    <th style="vertical-align: middle;">IMC</th>
+                                                    <th style="vertical-align: middle;">Categoria</th>
+                                                    <th style="vertical-align: middle;">Diferencia Peso</th>
+                                                    <th style="vertical-align: middle;">Editar</th>
+                                                    <th style="vertical-align: middle;">Eliminar</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php 
+                                                $cont = 0;
                                                 foreach( $arrControl as $key => $val ){
+                                                    $cont++;
                                                     $id = $key;
                                                     $fecha = $val["FECHA"];
                                                     $fechaFormateada = formatoFecha($fecha);
@@ -340,19 +343,32 @@ class control_view{
                                                     $nombreCategoria = $val["NOMBRE_CATEGORIA"];
                                                     $strNombreCategoria = ucwords($nombreCategoria);
                                                     $diferenciaPeso = number_format($peso - $pesoIdeal,2);
+
+                                                    if( $imc>=16 && $imc<=18.5){
+                                                        $strLeyenda = "Poco Peso";
+                                                        $strColor = "#3498db";
+                                                    }elseif( $imc>=18.6 && $imc<=25 ){
+                                                        $strLeyenda = "Normal";
+                                                        $strColor = "#27ae60";
+                                                    }elseif( $imc>=25.1 && $imc<=40 ){
+                                                        $strLeyenda = "Sobrepeso";
+                                                        $strColor = "#e74c3c";
+                                                    }
+
                                                     ?>
                                                     <tr>
-                                                        <td><?php print $fechaFormateada; ?></td>
-                                                        <td><?php print $peso; ?></td>
-                                                        <td><?php print $imc; ?></td>
-                                                        <td><?php print $strNombreCategoria; ?></td>
-                                                        <td><?php print $diferenciaPeso; ?></td>
-                                                        <td class="text-center">
+                                                        <td style="vertical-align: middle;"><input id="color_<?php print $cont; ?>" title="<?php print $strLeyenda; ?>" type="color" class="form-control" value="<?php print $strColor; ?>"></td>
+                                                        <td style="vertical-align: middle;"><?php print $fechaFormateada; ?></td>
+                                                        <td style="vertical-align: middle;"><?php print $peso; ?></td>
+                                                        <td style="vertical-align: middle;"><?php print $imc; ?></td>
+                                                        <td style="vertical-align: middle;"><?php print $strNombreCategoria; ?></td>
+                                                        <td style="vertical-align: middle;"><?php print $diferenciaPeso; ?></td>
+                                                        <td style="vertical-align: middle;">
                                                             <button class="btn btn-info" onclick="openModalEditar('<?php print $id; ?>','<?php print $fecha;?>','<?php print $peso; ?>')">
                                                                 <i class="far fas fa-edit"></i>&nbsp;Editar
                                                             </button>
                                                         </td>
-                                                        <td class="text-center">
+                                                        <td style="vertical-align: middle;">
                                                             <button class="btn btn-danger" onclick="openModalEliminar('<?php print $id; ?>','<?php print $fecha;?>','<?php print $peso; ?>')">
                                                                 <i class="far fas fa-trash-alt"></i>&nbsp;Eliminar
                                                             </button>
@@ -364,13 +380,14 @@ class control_view{
                                             </tbody>
                                             <tfoot style="background-color: #343a40; color: #fff;">
                                                 <tr>
-                                                    <th>Fecha</th>
-                                                    <th>Peso (lbs)</th>
-                                                    <th>IMC</th>
-                                                    <th>Categoria</th>
-                                                    <th>Diferencia Peso</th>
-                                                    <th class="text-center">Editar</th>
-                                                    <th class="text-center">Eliminar</th>
+                                                    <th></th>
+                                                    <th style="vertical-align: middle;">Fecha</th>
+                                                    <th style="vertical-align: middle;">Peso (lbs)</th>
+                                                    <th style="vertical-align: middle;">IMC</th>
+                                                    <th style="vertical-align: middle;">Categoria</th>
+                                                    <th style="vertical-align: middle;">Diferencia Peso</th>
+                                                    <th style="vertical-align: middle;">Editar</th>
+                                                    <th style="vertical-align: middle;">Eliminar</th>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -388,6 +405,19 @@ class control_view{
         drawFooter();
         ?>
         <script>
+
+            $(document).ready(function() {
+                // Selecciona todos los input con id que empiece por "color_"
+                $('input[id^="color_"]').each(function() {
+                    // Desactivar el selector de color
+                    $(this).attr('readonly', true);
+
+                    // Asignar función para desactivar el selector de color al hacer clic
+                    $(this).click(function(event) {
+                        event.preventDefault();
+                    });
+                });
+            });
 
             function destroySession() {
                 $.ajax({
