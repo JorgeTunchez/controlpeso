@@ -208,7 +208,7 @@ class control_view{
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="fecha">Fecha</label>
-                                    <input type="date" class="form-control" id="fecha">
+                                    <input type="date" class="form-control" id="fecha" value="<?php echo date("Y-m-d");?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="peso">Peso</label>
