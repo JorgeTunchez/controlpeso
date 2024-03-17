@@ -191,6 +191,8 @@ class control_view{
         drawHeader($this->arrRolUser, "control");
         $idUsuario = intval($this->arrRolUser["ID"]);
         $pesoIdeal = getPesoIdealConfig();
+        $zona_horaria = new DateTimeZone('America/Guatemala');
+        $hora_actual = new DateTime('now', $zona_horaria);
         ?>
         <div class="content-wrapper">
 
@@ -208,7 +210,7 @@ class control_view{
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="fecha">Fecha</label>
-                                    <input type="date" class="form-control" id="fecha" value="<?php echo date("Y-m-d");?>">
+                                    <input type="date" class="form-control" id="fecha" value="<?php echo $hora_actual->format("Y-m-d");?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="peso">Peso</label>

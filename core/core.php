@@ -500,8 +500,7 @@ function drawFooterEnd(){
 function drawFooter(){
     ?>
                 <footer class="main-footer">
-                    <strong>Copyright &copy; <?php print date("Y"); ?> <a href="https://adminlte.io">Control de Peso</a>.</strong>
-                    All rights reserved.
+                    <strong>Copyright &copy; <?php print date("Y"); ?></strong>
                     <div class="float-right d-none d-sm-inline-block">
                     <b>Version</b> 1
                     </div>
