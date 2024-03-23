@@ -79,7 +79,7 @@ class index_view{
                 <!-- Icon  -->
                 <link rel="icon" href="images/get_fit_icon.png">
                 <!-- sweetalert2  -->
-                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+                <link rel="stylesheet" href="dist/css/sweetalert2.min.css">
             </head>
             <body class="hold-transition login-page">
                 <div class="login-box">
@@ -129,9 +129,9 @@ class index_view{
                 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
                 <!-- AdminLTE App -->
                 <script src="dist/js/adminlte.min.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+                <script src="dist/js/sweetalert2@10.js"></script>
                 <!-- Core -->
-                <script src="build/js/core.js"></script>
+                <script src="build/js/Core.js"></script>
                 <script>
 
                     function reload(){
