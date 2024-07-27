@@ -83,43 +83,42 @@ class index_view{
             </head>
             <body class="hold-transition login-page">
                 <div class="login-box">
-                <div class="login-logo">
-                    <img src='images/get_fit_icon.png' height='100px'>
-                    <b>Control</b>Peso
-                </div>
-                <!-- /.login-logo -->
-                <div class="card">
-                    <div id="divShowLoadingGeneralBig" style="display:none;" class='centrar'><img src="images/icon-loader.gif" height="250px" width="250px"></div>
-                    <div class="card-body login-card-body">
-                    <p class="login-box-msg">Ingresa para iniciar tu sesión.</p>
-
-                    <form id="frmLogin" method="POST" action="javascript:void(0);">
-                        <div class="input-group mb-3">
-                        <input id="loginUsername" name="loginUsername" type="text" class="form-control" placeholder="Usuario">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                            <span class="fas fa-user"></span>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="input-group mb-3">
-                        <input id="loginPassword" name="loginPassword" type="password" class="form-control" placeholder="Password">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="row">
-                        <div class="col-12">
-                            <button class="btn btn-primary btn-block"  onclick="checkForm()">Iniciar Sesion</button>
-                        </div>
-                        <!-- /.col -->
-                        </div>
-                    </form>
+                    <div class="login-logo">
+                        <img src='images/get_fit_icon.png' height='100px'>
+                        <b>Control</b>Peso
                     </div>
-                    <!-- /.login-card-body -->
-                </div>
+                    <!-- /.login-logo -->
+                    <div class="card">
+                        <div id="divShowLoadingGeneralBig" style="display:none;" class='centrar'><img src="images/icon-loader.gif" height="250px" width="250px"></div>
+                        <div class="card-body login-card-body">
+                            <p class="login-box-msg">Ingresa para iniciar tu sesión.</p>
+                            <form id="frmLogin" method="POST" action="javascript:void(0);">
+                                <div class="input-group mb-3">
+                                    <input id="loginUsername" name="loginUsername" type="text" class="form-control" placeholder="Usuario">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-user"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <input id="loginPassword" name="loginPassword" type="password" class="form-control" placeholder="Password">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-lock"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button class="btn btn-primary btn-block"  onclick="checkForm()">Iniciar Sesion</button>
+                                    </div>
+                                <!-- /.col -->
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /.login-card-body -->
+                    </div>
                 </div>
                 <!-- /.login-box -->
 

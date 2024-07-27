@@ -97,7 +97,7 @@ class dashboard_model{
                   FROM controlpeso.control c
                  WHERE c.usuario = $usuario
                    AND c.activo = 1
-              ORDER BY c.id_control DESC LIMIT 10";
+              ORDER BY c.fecha DESC LIMIT 10";
         $result = executeQuery($sql);
         if (!empty($result)) {
             $cont = 0;
@@ -189,7 +189,7 @@ class dashboard_view{
             <section class="content">
             <div class="card-body">
                 <div class="position-relative mb-4">
-                  <canvas id="visitors-chart" height="250"></canvas>
+                  <canvas id="visitors-chart" height="350"></canvas>
                 </div>
                 <div class="d-flex flex-row justify-content-end">
                   <span class="mr-2">
