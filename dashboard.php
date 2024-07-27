@@ -77,7 +77,7 @@ class dashboard_model{
                   FROM controlpeso.control c
                  WHERE c.usuario = 1
                    AND c.activo = 1
-              ORDER BY c.id_control DESC LIMIT 1";
+              ORDER BY c.fecha DESC LIMIT 1";
         $result = executeQuery($sql);
         if (!empty($result)) {
             while ($row = mysqli_fetch_assoc($result)) {
