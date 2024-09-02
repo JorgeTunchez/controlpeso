@@ -154,6 +154,20 @@ function getPesoIdealConfig(){
 }
 
 
+function getNombreOpcion($nombreArchivo){
+    $nombreOpcion = "";
+    $sql = "SELECT TRIM(NOMBRE) NOMBRE FROM CONTROLPESO.SUBMENU WHERE TRIM(ARCHIVO) = '$nombreArchivo' AND ACTIVO = 1";
+    $result = executeQuery($sql);
+    if (!empty($result)) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $nombreOpcion = $row["NOMBRE"];
+        }
+    }
+    
+    return $nombreOpcion;
+}
+
+
 function formatoFecha($fecha) {
         // Establece el idioma en español
         setlocale(LC_TIME, 'es_ES.UTF-8');

@@ -292,7 +292,11 @@ class control_view{
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Control</h1>
+                            <?php 
+                            $nombreArchivo = basename(__FILE__);
+                            $nombreOpcion = getNombreOpcion($nombreArchivo);
+                            ?>
+                            <h1 class="m-0"><?php print ucwords(strtolower($nombreOpcion)); ?></h1>
                         </div>
                     </div>
                 </div>
