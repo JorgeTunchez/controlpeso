@@ -236,7 +236,7 @@ class reporte_view{
             }
 
             function reloadPage(){
-                location.href = "control.php";
+                location.href = "reporte.php";
             }
 
             function consultarReporte(){
