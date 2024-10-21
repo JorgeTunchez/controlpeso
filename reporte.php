@@ -161,21 +161,19 @@ class reporte_view{
 
     public function drawContent(){
         drawHeader($this->arrRolUser, "reporte");
-        $idUsuario = intval($this->arrRolUser["ID"]);
-        $pesoIdeal = getPesoIdealConfig();
+        $nombreOpcion = ucwords(strtolower(getNombreOpcion(basename(__FILE__))));
         $zona_horaria = new DateTimeZone('America/Guatemala');
-        $hora_actual = new DateTime('now', $zona_horaria);
+
+        $fechaInicial = strtotime('first day of this month', time());
+        $fechaInicial = date('Y-m-d', $fechaInicial);
+        $fechaFinal = date('Y-m-d');
         ?>
         <div class="content-wrapper">
             <section class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <?php 
-                            $nombreArchivo = basename(__FILE__);
-                            $nombreOpcion = getNombreOpcion($nombreArchivo);
-                            ?>
-                            <h1 class="m-0"><?php print ucwords(strtolower($nombreOpcion)); ?></h1>
+                            <h1 class="m-0"><?php print $nombreOpcion; ?></h1>
                         </div>
                     </div>
                 </div>
@@ -190,13 +188,13 @@ class reporte_view{
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="fecha">Fecha Inicial: </label>
-                                                <input type="date" class="form-control" id="fechaInicial">
+                                                <input type="date" class="form-control" id="fechaInicial" value="<?php echo $fechaInicial; ?>">
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="fecha">Fecha Final: </label>
-                                                <input type="date" class="form-control" id="fechaFinal">
+                                                <input type="date" class="form-control" id="fechaFinal" value="<?php echo $fechaFinal; ?>">
                                             </div>
                                         </div>
                                     </div>

@@ -110,6 +110,7 @@ class configuracion_view{
 
     public function drawContent(){
         drawHeader($this->arrRolUser, "Configuración");
+        $nombreOpcion = ucwords(strtolower(getNombreOpcion(basename(__FILE__))));
         $idUsuario = intval($this->arrRolUser["ID"]);
         $arrInfo = $this->objModel->getInfo();
         $altura = $arrInfo["ALTURA"];
@@ -120,11 +121,7 @@ class configuracion_view{
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <?php 
-                            $nombreArchivo = basename(__FILE__);
-                            $nombreOpcion = getNombreOpcion($nombreArchivo);
-                            ?>
-                            <h1 class="m-0"><?php print ucwords(strtolower($nombreOpcion)); ?></h1>
+                            <h1 class="m-0"><?php print $nombreOpcion; ?></h1>
                         </div>
                     </div>
                 </div>

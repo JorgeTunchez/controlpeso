@@ -169,66 +169,66 @@ function getNombreOpcion($nombreArchivo){
 
 
 function formatoFecha($fecha) {
-        // Establece el idioma en español
-        setlocale(LC_TIME, 'es_ES.UTF-8');
+    // Establece el idioma en español
+    setlocale(LC_TIME, 'es_ES.UTF-8');
 
-        // Convierte la fecha al formato Unix timestamp
-        $timestamp = strtotime($fecha);
-    
-        // Verifica si la conversión fue exitosa
-        if ($timestamp === false) {
-            return "Fecha inválida";
-        }
-    
-        // Obtiene el número de mes (1-12)
-        $numero_mes = date('n', $timestamp);
-    
-        // Convierte el número de mes en su nombre en español
-        switch ($numero_mes) {
-            case 1:
-                $nombre_mes = 'enero';
-                break;
-            case 2:
-                $nombre_mes = 'febrero';
-                break;
-            case 3:
-                $nombre_mes = 'marzo';
-                break;
-            case 4:
-                $nombre_mes = 'abril';
-                break;
-            case 5:
-                $nombre_mes = 'mayo';
-                break;
-            case 6:
-                $nombre_mes = 'junio';
-                break;
-            case 7:
-                $nombre_mes = 'julio';
-                break;
-            case 8:
-                $nombre_mes = 'agosto';
-                break;
-            case 9:
-                $nombre_mes = 'septiembre';
-                break;
-            case 10:
-                $nombre_mes = 'octubre';
-                break;
-            case 11:
-                $nombre_mes = 'noviembre';
-                break;
-            case 12:
-                $nombre_mes = 'diciembre';
-                break;
-            default:
-                $nombre_mes = 'desconocido';
-        }
-    
-        // Formatea la fecha en el formato "DD de mes de YYYY"
-        $fecha_formateada = strftime('%d de '.$nombre_mes.' de %Y', $timestamp);
-    
-        return $fecha_formateada;
+    // Convierte la fecha al formato Unix timestamp
+    $timestamp = strtotime($fecha);
+
+    // Verifica si la conversión fue exitosa
+    if ($timestamp === false) {
+        return "Fecha inválida";
+    }
+
+    // Obtiene el número de mes (1-12)
+    $numero_mes = date('n', $timestamp);
+
+    // Convierte el número de mes en su nombre en español
+    switch ($numero_mes) {
+        case 1:
+            $nombre_mes = 'enero';
+            break;
+        case 2:
+            $nombre_mes = 'febrero';
+            break;
+        case 3:
+            $nombre_mes = 'marzo';
+            break;
+        case 4:
+            $nombre_mes = 'abril';
+            break;
+        case 5:
+            $nombre_mes = 'mayo';
+            break;
+        case 6:
+            $nombre_mes = 'junio';
+            break;
+        case 7:
+            $nombre_mes = 'julio';
+            break;
+        case 8:
+            $nombre_mes = 'agosto';
+            break;
+        case 9:
+            $nombre_mes = 'septiembre';
+            break;
+        case 10:
+            $nombre_mes = 'octubre';
+            break;
+        case 11:
+            $nombre_mes = 'noviembre';
+            break;
+        case 12:
+            $nombre_mes = 'diciembre';
+            break;
+        default:
+            $nombre_mes = 'desconocido';
+    }
+
+    // Formatea la fecha en el formato "DD de mes de YYYY"
+    $fecha_formateada = strftime('%d de '.$nombre_mes.' de %Y', $timestamp);
+
+    return $fecha_formateada;
 }
 
 function getMenu(){
