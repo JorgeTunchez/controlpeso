@@ -1,5 +1,7 @@
 <?php
 
+require('plugins/fpdf186/fpdf.php');
+
 // Funcion que permite establecer conexion con servidor y la base de datos
 function getConexion(){
     $servername = "localhost:3306";
@@ -127,6 +129,7 @@ function getIDUserSession($sessionName){
 }
 
 
+// Funcion que permite obtener la altura configurada
 function getAlturaConfig(){
     $altura = 0;
     $strQuery = "SELECT altura FROM controlpeso.configuracion";
@@ -140,6 +143,8 @@ function getAlturaConfig(){
     return $altura;
 }
 
+
+// Funcion que permite obtener el peso ideal configurado
 function getPesoIdealConfig(){
     $pesoIdeal = 0;
     $strQuery = "SELECT peso_ideal FROM controlpeso.configuracion";
@@ -154,6 +159,7 @@ function getPesoIdealConfig(){
 }
 
 
+// Funcion que permite obtener el nombre de una opcion en especifico
 function getNombreOpcion($nombreArchivo){
     $nombreOpcion = "";
     $sql = "SELECT TRIM(NOMBRE) NOMBRE FROM CONTROLPESO.SUBMENU WHERE TRIM(ARCHIVO) = '$nombreArchivo' AND ACTIVO = 1";
@@ -168,6 +174,7 @@ function getNombreOpcion($nombreArchivo){
 }
 
 
+// Funcion que permite darle formato a una fecha en especifico
 function formatoFecha($fecha) {
     // Establece el idioma en español
     setlocale(LC_TIME, 'es_ES.UTF-8');
@@ -231,6 +238,8 @@ function formatoFecha($fecha) {
     return $fecha_formateada;
 }
 
+
+// Funcion que permite obtener el menu de la aplicacion
 function getMenu(){
     $arrMenu = array();
     $sql = "SELECT TRIM(m.nombre) menu, 
@@ -262,6 +271,7 @@ function getMenu(){
     return $arrMenu;
 }
 
+
 // Funcion que permite obtener el nombre del colaborador que esta logeado en usuario
 function getNombreUserSession($sessionName){
     $strNameUserSession = "";
@@ -280,6 +290,7 @@ function getNombreUserSession($sessionName){
 
     return $strNameUserSession;
 }
+
 
 // Funcion que permite generar un password aleatorio segun el numero de caracteres como parametro 
 function generatePassword($length = 8){
@@ -456,12 +467,15 @@ function drawHeader($arrRolUser, $nombre){
     <?php
 }
 
+
+// Funcion que permite dibujar el final del footer
 function drawFooterEnd(){
     ?>
         </body>
     </html>
     <?php
 }
+
 
 // Funcion que permite dibujar el footer de la aplicacion
 function drawFooter(){

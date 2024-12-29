@@ -1,6 +1,6 @@
 <?php 
 require_once("core/core.php");
-boolDebug(false);
+boolDebug(true);
 session_start();
 
 if (isset($_SESSION['user_id'])) {
@@ -33,6 +33,7 @@ class reporte_controller{
 
     public function runAjax(){
         $this->ajaxDestroySession();
+        $this->generarReporte();
         $this->consultarReporte();
     }
 
@@ -46,6 +47,89 @@ class reporte_controller{
             session_destroy();
             $arrReturn["Correcto"] = "Y";
             print json_encode($arrReturn);
+            exit();
+        }
+    }
+
+    public function generarReporte(){
+        if( isset($_POST["generarReporte"]) ){
+            $fechaInicial = isset($_POST["fechaInicial"])? trim($_POST["fechaInicial"]): "";
+            $fechaFinal = isset($_POST["fechaFinal"])? trim($_POST["fechaFinal"]): "";
+            $usuario = intval($this->arrRolUser["ID"]);
+            $pesoIdeal = getPesoIdealConfig();
+
+            $arrControl = $this->objModel->getInfo($usuario, $fechaInicial, $fechaFinal);
+            if (count($arrControl) > 0) {
+
+                // Directorio donde se guardan los reportes
+                $directorio = 'reportes/';
+
+                // Eliminar los archivos existentes en el directorio
+                foreach (glob($directorio . '*') as $archivo) {
+                    if (is_file($archivo)) {
+                        unlink($archivo); // Eliminar el archivo
+                    }
+                }
+
+                // Crear una nueva instancia de FPDF
+                $pdf = new FPDF();
+                $pdf->AddPage(); // Agregar una página
+                $pdf->SetFont('Arial', 'B', 12); // Establecer fuente, estilo y tamaño
+
+                // Texto Introduccion
+                $fechaInicialFormateada = formatoFecha($fechaInicial);
+                $fechaFinalFormateada = formatoFecha($fechaFinal).".";
+                $pdf->Cell(0, 10, utf8_decode("Control Peso $fechaInicialFormateada al $fechaFinalFormateada"), 0, 1, 'L');
+                $pdf->Ln(0); // Espacio entre el texto y la tabla
+
+                // Texto de peso configurado
+                $pesoTexto = number_format($pesoIdeal,0);
+                $pdf->SetFont('Arial', 'B', 10); 
+                $pdf->Cell(0, 10, utf8_decode("Meta de peso ideal $pesoTexto lbs."), 0, 1, 'L');
+                $pdf->Ln(5); // Espacio entre el texto y la tabla
+
+                // Encabezado de la tabla
+                $pdf->SetFont('Arial', 'B', 12); 
+                $pdf->Cell(50, 10, utf8_decode("Fecha"), 1, 0, 'C');
+                $pdf->Cell(30, 10, utf8_decode("Peso (lbs)"), 1, 0, 'C');
+                $pdf->Cell(30, 10, utf8_decode("IMC"), 1, 0, 'C');
+                $pdf->Cell(40, 10, utf8_decode("Categoría"), 1, 0, 'C');
+                $pdf->Cell(40, 10, utf8_decode("Diferencia (lbs)"), 1, 1, 'C');
+
+                $pdf->SetFont('Arial', '', 10); // Cambiar a texto normal
+                foreach( $arrControl as $key => $val ){
+                    $fecha = $val["FECHA"];
+                    $fechaFormateada = formatoFecha($fecha);
+                    $peso = $val["PESO"];
+                    $imc = $val["IMC"];
+                    $categoria = ucwords(strtolower($val["CATEGORIA"]));
+                    $diferenciaPeso = number_format($peso - $pesoIdeal,2);
+
+                    $pdf->Cell(50, 10, utf8_decode($fechaFormateada), 1, 0, 'C');
+                    $pdf->Cell(30, 10, $peso, 1, 0, 'C');
+                    $pdf->Cell(30, 10, $imc, 1, 0, 'C');
+                    $pdf->Cell(40, 10, utf8_decode($categoria), 1, 0, 'C');
+                    $pdf->Cell(40, 10, $diferenciaPeso, 1, 1, 'C');
+                    
+                }
+                
+                // Guardar el PDF en el navegador
+                $nombreArchivo = 'reporte_' . time() . '.pdf';
+                $rutaArchivo = 'reportes/'.$nombreArchivo;
+                $pdf->Output('F', $rutaArchivo); // Guardar el PDF en el servidor
+
+                // Responder con el estado y la ruta del archivo
+                echo json_encode([
+                    'ESTADO' => '1',
+                    'URL' => 'reportes/' . $nombreArchivo
+                ], JSON_UNESCAPED_SLASHES);
+                
+            }else{
+                echo json_encode([
+                    'ESTADO' => '0'
+                ]);
+            }
+
             exit();
         }
     }
@@ -72,10 +156,7 @@ class reporte_controller{
                     </thead>
                     <tbody>
                         <?php 
-                        $cont = 0;
                         foreach( $arrControl as $key => $val ){
-                            $cont++;
-                            $id = $key;
                             $fecha = $val["FECHA"];
                             $fechaFormateada = formatoFecha($fecha);
                             $peso = $val["PESO"];
@@ -103,6 +184,9 @@ class reporte_controller{
                         <td style="vertical-align: middle;"><center>No Existe información asociadada la búsqueda.</center></td>
                     </tr>
                 </table>
+                <script>
+                    $("#btnGenerar").prop('disabled', true);
+                </script>
                 <?php
             }
 
@@ -199,10 +283,16 @@ class reporte_view{
                                         </div>
                                     </div>
                                     <div class="row text-center">
-                                        <div class="col-lg-12">
+                                        <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label for="fecha"></label>
                                                 <button type="button" id="btnConsultar" class="btn btn-primary" onclick="consultarReporte()">Consultar</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="generar"></label>
+                                                <button type="button" id="btnGenerar" class="btn btn-success" onclick="generarReporte()">Generar</button>
                                             </div>
                                         </div>
                                     </div>
@@ -219,7 +309,9 @@ class reporte_view{
         ?>
         <script>
 
-            $(document).ready(function() {});
+            $(document).ready(function() {
+                $("#btnGenerar").prop('disabled', true);
+            });
 
             function destroySession() {
                 $.ajax({
@@ -241,9 +333,33 @@ class reporte_view{
                 location.href = "reporte.php";
             }
 
+            function generarReporte(){
+                fechaInicial = $("#fechaInicial").val();
+                fechaFinal = $("#fechaFinal").val();
+                $.ajax({
+                    url: "reporte.php",
+                    data: {
+                        generarReporte: true,
+                        fechaInicial: fechaInicial,
+                        fechaFinal: fechaFinal
+                    },
+                    type: "post",
+                    dataType: "json",
+                    success: function(respuesta) {
+                        if( respuesta.ESTADO == '0'){
+                            alertError("No se logro generar el reporte.");
+                        }else {
+                            // Redirigir al archivo PDF generado
+                            window.open(respuesta.URL, '_blank');
+                        }
+                    }
+                });
+            }
+
             function consultarReporte(){
                 fechaInicial = $("#fechaInicial").val();
                 fechaFinal = $("#fechaFinal").val();
+                $("#btnGenerar").prop('disabled', true);
 
                 if( fechaInicial == ''){
                     alertError("Debe ingresar un valor para Fecha Inicial.");
@@ -264,9 +380,11 @@ class reporte_view{
                         dataType: "html",
                         beforeSend: function(){
                             $("#btnConsultar").prop('disabled', true);
+                            $("#btnGenerar").prop('disabled', true);
                         },
                         success: function(respuesta) {
                             $("#btnConsultar").prop('disabled', false);
+                            $("#btnGenerar").prop('disabled', false);
                             $("#contenidoReporte").html(respuesta);
                         }
                     });

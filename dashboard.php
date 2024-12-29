@@ -296,7 +296,7 @@ class dashboard_view{
                                 ticks: $.extend({
                                     beginAtZero: false,
                                     suggestedMin: 190,
-                                    suggestedMax: 205
+                                    suggestedMax: 195
                                 }, ticksStyle)
                                 }],
                                 xAxes: [{

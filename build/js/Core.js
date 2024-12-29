@@ -21,6 +21,17 @@ function alertError(texto){
 }
 
 
+function alertSuccessWithoutFunction(titulo, texto) {
+  Swal.fire({
+    title: titulo,
+    text: texto,
+    icon: 'success',
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true
+  }).then(() => {});
+}
+
 function alertSuccessWithFunction(titulo, texto, nombrefuncion) {
     Swal.fire({
       title: titulo,
