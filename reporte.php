@@ -1,6 +1,6 @@
 <?php 
 require_once("core/core.php");
-boolDebug(true);
+boolDebug(false);
 session_start();
 
 if (isset($_SESSION['user_id'])) {
